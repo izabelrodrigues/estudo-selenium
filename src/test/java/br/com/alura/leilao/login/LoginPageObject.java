@@ -3,40 +3,30 @@
  */
 package br.com.alura.leilao.login;
 
-import org.junit.jupiter.api.condition.OS;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
+import br.com.alura.leilao.PageObject;
 import br.com.alura.leilao.leiloes.LeilaoPageObject;
 
 /**
  * @author Izabel Rodrigues
  *
  */
-public class LoginPageObject {
+public class LoginPageObject extends PageObject {
+
 
 	private static final String URL_EDITAR_LEILAO_UM = "http://localhost:8080/leiloes/1/form";
 	private static final String URL_DAR_LANCE_LEILAO_DOIS = "http://localhost:8080/leiloes/2";
 	private static final String URL_LOGIN = "http://localhost:8080/login";
-	public WebDriver browser;
 
-	public LoginPageObject(OS osSystem) {
-
-		switch (osSystem) {
-		case WINDOWS:
-			System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
-			this.browser = new ChromeDriver();
-			break;
-		default:
-			System.setProperty("webdriver.chrome.driver", "drivers/chromedriver");
-			this.browser = new ChromeDriver();
-			break;
-		}
+	public LoginPageObject(WebDriver browser, String systemDriver) {
+		super(browser, systemDriver);
+		this.systemDriver = systemDriver;
 	}
 
-	public void fechar() {
-		browser.quit();
+	public LoginPageObject(String driver) {
+		this(null, driver);
 	}
 
 	public LeilaoPageObject efetuaLogin(String user, String pass) {
@@ -50,7 +40,7 @@ public class LoginPageObject {
 		// Envia o formulário de login
 		browser.findElement(By.id("login-form")).submit();
 
-		return new LeilaoPageObject(browser);
+		return new LeilaoPageObject(browser, systemDriver);
 
 	}
 

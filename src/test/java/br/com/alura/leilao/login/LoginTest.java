@@ -29,12 +29,12 @@ class LoginTest {
 	@EnabledOnOs({ OS.WINDOWS })
 	@BeforeEach
 	public void beforeEachIfWin() {
-		loginPageObject = new LoginPageObject(OS.WINDOWS);
+		loginPageObject = new LoginPageObject("drivers/chromedriver.exe");
 	}
 
 	@EnabledOnOs({ OS.OTHER })
 	public void beforeEachIfNotWin() {
-		loginPageObject = new LoginPageObject(OS.OTHER);
+		loginPageObject = new LoginPageObject("drivers/chromedriver");
 	}
 
 	@AfterEach

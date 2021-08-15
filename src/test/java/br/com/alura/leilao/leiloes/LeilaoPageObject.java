@@ -7,28 +7,21 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import br.com.alura.leilao.PageObject;
+
 /**
  * @author Izabel Rodrigues
  *
  */
-public class LeilaoPageObject {
+public class LeilaoPageObject extends PageObject {
 
-	private WebDriver browser;
-
-	/**
-	 * @param browser
-	 */
-	public LeilaoPageObject(WebDriver browser) {
-		this.browser = browser;
+	public LeilaoPageObject(WebDriver browser, String systemDriver) {
+		super(browser, systemDriver);
 	}
 
-	public void fechar() {
-		this.browser.quit();
-	}
-
-	public CadastroLeilaoPageObject irParaPaginaCadastroComClickNoBotaoNovoLeilao() {
+	public CadastroLeilaoPageObject irParaPaginaCadastroComClickNoBotaoNovoLeilao(String driver) {
 		browser.findElement(By.id("novo_leilao_link")).click();
-		return new CadastroLeilaoPageObject(browser);
+		return new CadastroLeilaoPageObject(browser, driver);
 	}
 
 	public boolean isLeilaoCadastrado(String nome, String valorInicial, String dataAbertura) {

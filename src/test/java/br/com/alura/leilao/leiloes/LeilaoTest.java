@@ -29,30 +29,29 @@ class LeilaoTest {
 	private LoginPageObject loginPageObject;
 	private LeilaoPageObject leilaoPageObject;
 	private CadastroLeilaoPageObject cadastroLeilaoPage;
+	private String driver;
 
 	@EnabledOnOs({ OS.WINDOWS })
 	@BeforeEach
 	public void beforeEachIfWin() {
-		this.loginPageObject = new LoginPageObject(OS.WINDOWS);
+		this.driver = "drivers/chromedriver.exe";
+		this.loginPageObject = new LoginPageObject(driver);
 		this.cadastroLeilaoPage = irParaCadastroLeilao();
-
 	}
 
 	@EnabledOnOs({ OS.OTHER })
 	public void beforeEachIfNotWin() {
-		this.loginPageObject = new LoginPageObject(OS.OTHER);
+		this.driver = "drivers/chromedriver";
+		this.loginPageObject = new LoginPageObject("drivers/chromedriver");
 	}
 
 	@AfterEach
 	public void afterEach() {
 		this.leilaoPageObject.fechar();
-		// this.cadastroLeilaoPage.fechar();
-		// this.loginPageObject.fechar();
 	}
 
 	@Test
 	void validaCriacaoLeilaoComSucesso() {
-
 
 		String dataAbertura = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		String nome = "Leilão do dia " + dataAbertura;
@@ -91,7 +90,7 @@ class LeilaoTest {
 
 	private CadastroLeilaoPageObject irParaCadastroLeilao() {
 		this.leilaoPageObject = loginPageObject.efetuaLogin(USUARIO_FULANO, "pass");
-		return leilaoPageObject.irParaPaginaCadastroComClickNoBotaoNovoLeilao();
+		return leilaoPageObject.irParaPaginaCadastroComClickNoBotaoNovoLeilao(this.driver);
 	}
 
 }

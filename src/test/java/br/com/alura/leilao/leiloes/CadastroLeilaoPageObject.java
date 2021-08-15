@@ -6,16 +6,16 @@ package br.com.alura.leilao.leiloes;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import br.com.alura.leilao.PageObject;
+
 /**
  * @author Izabel Rodrigues
  *
  */
-public class CadastroLeilaoPageObject {
+public class CadastroLeilaoPageObject extends PageObject {
 
-	private WebDriver browser;
-
-	public CadastroLeilaoPageObject(WebDriver browser) {
-		this.browser = browser;
+	public CadastroLeilaoPageObject(WebDriver browser, String systemDriver) {
+		super(browser, systemDriver);
 	}
 
 	public LeilaoPageObject cadastraLeilao(String nome, String valorInicial, String dataAbertura) {
@@ -23,7 +23,7 @@ public class CadastroLeilaoPageObject {
 		preencheFormulario(nome, valorInicial, dataAbertura);
 		browser.findElement(By.id("button-submit")).click();
 
-		return new LeilaoPageObject(browser);
+		return new LeilaoPageObject(browser, this.systemDriver);
 
 	}
 
@@ -55,8 +55,5 @@ public class CadastroLeilaoPageObject {
 		return true;
 	}
 
-	public void fechar() {
-		this.browser.quit();
-	}
 
 }
