@@ -22,7 +22,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
  * @author Izabel Rodrigues
  *
  */
-public class LoginTeste {
+public class LoginTest {
 
 	private static final String USUARIO_FULANO = "fulano";
 	private static final String URL_LOGIN = "http://localhost:8080/login";
@@ -93,6 +93,30 @@ public class LoginTeste {
 		
 		System.out.println(">>> verificaLoginInvalido executado...");
 		
+	}
+	
+	@Test
+	public void verificaRedirecionamentoUsuarioNaoLogadoEmPaginaRestritaEdicao() {
+		browser.navigate().to("http://localhost:8080/leiloes/1/form");
+		String currentUrl = browser.getCurrentUrl();
+		String tituloPagina = browser.findElement(By.id("titulo-pagina")).getText();
+
+		assertTrue(URL_LOGIN.equals(currentUrl));
+		assertFalse("Novo Leilão".equals(tituloPagina));
+		
+		System.out.println(">>> verificaRedirecionamentoUsuarioNaoLogadoEmPaginaRestritaEdicao executado...");
+	}
+	
+	@Test
+	public void verificaRedirecionamentoUsuarioNaoLogadoEmPaginaRestritaDarLance() {
+		browser.navigate().to("http://localhost:8080/leiloes/2");
+		String currentUrl = browser.getCurrentUrl();
+		String tituloPagina = browser.findElement(By.id("titulo-pagina")).getText();
+
+		assertTrue(URL_LOGIN.equals(currentUrl));
+		assertFalse("Dados do Leilão".equals(tituloPagina));
+		
+		System.out.println(">>> verificaRedirecionamentoUsuarioNaoLogadoEmPaginaRestritaDarLance executado...");
 	}
 	
 	private void efetuaLogin(String user, String pass) {
