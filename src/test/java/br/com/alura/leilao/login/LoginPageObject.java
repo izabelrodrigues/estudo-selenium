@@ -8,6 +8,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import br.com.alura.leilao.leiloes.LeilaoPageObject;
+
 /**
  * @author Izabel Rodrigues
  *
@@ -37,7 +39,7 @@ public class LoginPageObject {
 		browser.quit();
 	}
 
-	public void efetuaLogin(String user, String pass) {
+	public LeilaoPageObject efetuaLogin(String user, String pass) {
 		// Abre a tela de login
 		irParaPaginaLogin();
 
@@ -47,6 +49,8 @@ public class LoginPageObject {
 
 		// Envia o formulário de login
 		browser.findElement(By.id("login-form")).submit();
+
+		return new LeilaoPageObject(browser);
 
 	}
 
